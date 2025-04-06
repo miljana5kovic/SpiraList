@@ -1,0 +1,7 @@
+<mat-select [(value)]="selected">
+    <mat-option *ngFor="let type of algorithmTypes" [value]={type}>{{type.type | uppercase}}</mat-option>
+</mat-select>
+
+<mat-slider class="array_length" step="1" min="4" max="100">
+    <input matSliderThumb>
+</mat-slider>
