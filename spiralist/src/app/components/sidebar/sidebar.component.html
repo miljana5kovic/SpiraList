@@ -1,0 +1,8 @@
+<div class="sidebar" [ngClass]="{'sidebar-collapsed' : isCollapsed}">
+    <!-- Make this part later into a template -->
+    <div *ngIf= "!isCollapsed" class="sidebar-content-container">
+    </div>
+    <mat-icon class="collapseButton" (click)="toggleCollapse()">
+        {{ isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_left' }}
+    </mat-icon>
+</div>
