@@ -1,9 +1,9 @@
 .sidebar {
     height: 100vh;
     width: 250px;
-    position:fixed;
-    top:0;
-    left: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
     background-color: red;
 
     @media (max-width: 500px){
@@ -22,8 +22,8 @@
         background-color: yellow;
         height: 50px;
         width: 50px;
-        position:fixed;
-        bottom:0;
+        position: fixed;
+        bottom: 0;
         left: 0;
         &.collapsedIcon{
             background-color: blue;
