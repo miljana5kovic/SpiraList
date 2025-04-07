@@ -1,0 +1,28 @@
+[
+    {
+      "type": "sorting",
+      "algos": [
+        {
+          "name": "merge sort",
+          "id": 1
+        },
+        {
+          "name": "bubble sort",
+          "id": 2
+        }
+        ]
+    },
+    {
+     "type": "path finding",
+      "algos": [
+        {
+          "name": "BFS",
+          "id": 1
+        },
+        {
+          "name": "DFS",
+          "id": 2
+        }
+        ]
+    }
+]

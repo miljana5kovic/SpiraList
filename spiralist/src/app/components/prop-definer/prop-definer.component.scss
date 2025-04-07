@@ -1,0 +1,22 @@
+.container{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50%;
+    & .array_length{
+        width: 100%;
+    }
+    & .selections{
+        display: flex;
+        flex-direction: column;
+        height: 50%;
+        justify-content: space-between;
+    }
+    & .buttons{
+        & button{
+            width: 100%;
+            margin-bottom: 5px;
+        }
+    }
+}
