@@ -1,7 +1,22 @@
-<mat-select [(value)]="selected">
-    <mat-option *ngFor="let type of algorithmTypes" [value]={type}>{{type.type | uppercase}}</mat-option>
-</mat-select>
+<div class="container">
+    <div class="selections">
+        <mat-select placeholder="Type" [(value)]="selectedType" [disabled]="active">
+            <mat-option *ngFor="let type of algorithmTypes" [value]=type>{{type.type | uppercase}}</mat-option>
+        </mat-select>
+        
+        <mat-select placeholder="Algorithm"  [(value)]="selectedAlgo" [disabled]="active">
+            <mat-option *ngFor="let algo of selectedType?.algos" [value]=algo>{{algo.name | uppercase}}</mat-option>
+        </mat-select>
+        
+        <mat-slider class="array_length" step="1" min="4" max="100" [disabled]="active">
+            <input matSliderThumb>
+        </mat-slider>
+    </div>
 
-<mat-slider class="array_length" step="1" min="4" max="100">
-    <input matSliderThumb>
-</mat-slider>
+    <div class="buttons">  
+        <mat-divider></mat-divider>
+        <button mat-raised-button (click)="generate()" [disabled]="active">GENERATE</button>
+        <button *ngIf='!active' mat-raised-button (click)="start()">START</button>
+        <button *ngIf='active' mat-raised-button (click)="stop()">STOP</button>
+    </div>
+</div>

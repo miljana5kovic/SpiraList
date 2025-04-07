@@ -1,6 +1,6 @@
 export interface Algorithms{
     type: string;
-    algorithms: Algorithm[];
+    algos: Algorithm[];
 }
 
 export interface Algorithm{
