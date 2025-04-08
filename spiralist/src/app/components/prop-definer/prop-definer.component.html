@@ -8,8 +8,8 @@
             <mat-option *ngFor="let algo of selectedType?.algos" [value]=algo>{{algo.name | uppercase}}</mat-option>
         </mat-select>
         
-        <mat-slider class="array_length" step="1" min="4" max="100" [disabled]="active">
-            <input matSliderThumb>
+        <mat-slider class="array_length" step="1" min="50" max="500" [discrete]="true" [disabled]="active">
+            <input matSliderThumb  (valueChange)="sliderChangedValue($event)">
         </mat-slider>
     </div>
 

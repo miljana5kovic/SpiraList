@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import { Algorithms } from '../../models/algorithms';
 import AlgoTypes from '../../assets/algos.json'
+import { SortService } from '../../services/sort.service';
 
 @Component({
   selector: 'prop-definer',
@@ -18,19 +19,25 @@ export class PropDefinerComponent {
   algorithmTypes: Algorithms[];
   selectedType?: Algorithms;
   selectedAlgo?: Algorithm;
+  length: number = 100;
 
   active: boolean = false;
-  constructor() {
+
+  constructor(private sortService: SortService) {
     this.algorithmTypes = AlgoTypes as unknown as Algorithms[];
   }
 
-  generate(): void {
-    console.log('GENERATED!'); //should emit event to component to draw
+  sliderChangedValue(event: number): void {
+    this.length = event;
   }
 
+  generate(): void {
+    this.sortService.generate(this.length);
+  }
   //add logic after implementing algorithms
   start(): void {
     this.active = true;
+    this.sortService.sort(this.selectedAlgo?.name);
   }
   stop(): void {
     this.active = false;
