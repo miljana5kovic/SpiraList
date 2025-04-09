@@ -26,6 +26,17 @@ export class GraphicsScreenComponent implements OnInit {
       .map(() => Math.floor(600 * Math.random() + 100));
   }
 
-  sort(algo: string): void {
+  async sort(algo: string): Promise<void> {
+    const n = this.array.length;
+    for (let i = 0; i < n - 1; i++) {
+      let minIndex = i;
+      for (let j = i + 1; j < n; j++) {
+        if (this.array[j] < this.array[minIndex]) {
+          minIndex = j;
+        }
+      }
+      [this.array[i], this.array[minIndex]] = [this.array[minIndex], this.array[i]];
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
   }
 }
