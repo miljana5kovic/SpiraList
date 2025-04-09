@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SortService } from '../../services/sort.service';
 
 @Component({
@@ -10,6 +10,8 @@ import { SortService } from '../../services/sort.service';
 })
 export class GraphicsScreenComponent implements OnInit {
   array: number[] = [];
+  swappedIndices: number[] = [];
+  comparedIndices: number[] = [];
 
   constructor(private sortService: SortService) {
     this.array = this.generate(100);
@@ -26,17 +28,25 @@ export class GraphicsScreenComponent implements OnInit {
       .map(() => Math.floor(600 * Math.random() + 100));
   }
 
-  async sort(algo: string): Promise<void> {
+  async sort(algo: string): Promise<void> { //must send event when completed to service so that active can be changed
     const n = this.array.length;
     for (let i = 0; i < n - 1; i++) {
       let minIndex = i;
       for (let j = i + 1; j < n; j++) {
-        if (this.array[j] < this.array[minIndex]) {
+        this.comparedIndices = [j, minIndex];
+        await new Promise(resolve => setTimeout(resolve, 1)); 
+        //add so that user can choose how fast it goes
+        if (this.array[j] < this.array[minIndex])
           minIndex = j;
-        }
+        this.comparedIndices = [minIndex];
       }
+      this.comparedIndices = [];
+      this.swappedIndices.push(i);
+      this.swappedIndices.push(minIndex);
+      await new Promise(resolve => setTimeout(resolve, 5));
       [this.array[i], this.array[minIndex]] = [this.array[minIndex], this.array[i]];
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      this.swappedIndices.pop();
     }
+    this.swappedIndices.push(n-1);
   }
 }

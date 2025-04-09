@@ -11,7 +11,7 @@ export class SortService { //rework this to work with any algoritm type
     this.generateEvent.emit(len);
   }
 
-  sort(sortType: string | undefined) { //this should not be allowed to undefined
-    this.sortEvent.emit(sortType);
+  async sort(sortType: string | undefined) { //this should not be allowed to undefined
+    await this.sortEvent.emit(sortType);
   }
 }
