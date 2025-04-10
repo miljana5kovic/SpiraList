@@ -23,30 +23,43 @@ export class GraphicsScreenComponent implements OnInit {
   }
 
   generate(len: number): number[] {
+    this.swappedIndices = [];
+    this.comparedIndices = [];
     return Array(len)
       .fill(undefined)
       .map(() => Math.floor(600 * Math.random() + 100));
   }
 
-  async sort(algo: string): Promise<void> { //must send event when completed to service so that active can be changed
-    const n = this.array.length;
-    for (let i = 0; i < n - 1; i++) {
-      let minIndex = i;
-      for (let j = i + 1; j < n; j++) {
-        this.comparedIndices = [j, minIndex];
-        await new Promise(resolve => setTimeout(resolve, 1)); 
-        //add so that user can choose how fast it goes
-        if (this.array[j] < this.array[minIndex])
-          minIndex = j;
-        this.comparedIndices = [minIndex];
-      }
-      this.comparedIndices = [];
-      this.swappedIndices.push(i);
-      this.swappedIndices.push(minIndex);
-      await new Promise(resolve => setTimeout(resolve, 5));
-      [this.array[i], this.array[minIndex]] = [this.array[minIndex], this.array[i]];
-      this.swappedIndices.pop();
+  async sort(algo: string): Promise<void> { // must send event when completed to service so that active can be changed
+    switch (algo) { // these should be in separate functions
+      case "selection sort": // all cases for sorting types should be in some enum and accessed by ids...
+        const n = this.array.length;
+        for (let i = 0; i < n - 1; i++) {
+          let minIndex = i;
+          for (let j = i + 1; j < n; j++) {
+            this.comparedIndices = [j, minIndex];
+            await new Promise(resolve => setTimeout(resolve, 1));
+            // add so that user can choose how fast it goes
+            if (this.array[j] < this.array[minIndex])
+              minIndex = j;
+            this.comparedIndices = [minIndex];
+          }
+          this.comparedIndices = [];
+          this.swappedIndices.push(i);
+          this.swappedIndices.push(minIndex);
+          await new Promise(resolve => setTimeout(resolve, 5));
+          [this.array[i], this.array[minIndex]] = [this.array[minIndex], this.array[i]];
+          this.swappedIndices.pop();
+        }
+        this.swappedIndices.push(n - 1);
+        break;
+      case "merge sort":
+        break;
+      case "bubble sort":
+        break;
+      default:
+        throw Error('Invalid sorting type');
     }
-    this.swappedIndices.push(n-1);
+    this.sortService.sortCompleted();
   }
 }

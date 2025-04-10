@@ -3,6 +3,10 @@
       "type": "sorting",
       "algos": [
         {
+        "name": "selection sort",
+        "id": 1
+        },
+        {
           "name": "merge sort",
           "id": 1
         },

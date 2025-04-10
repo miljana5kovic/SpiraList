@@ -38,6 +38,8 @@ export class PropDefinerComponent {
   start(): void {
     this.active = true;
     this.sortService.sort(this.selectedAlgo?.name);
+    // unssubscribe from all subscriptions on destroy
+    this.sortService.sortCompletedEvent.subscribe(() => this.active = false);
   }
   stop(): void {
     this.active = false;
