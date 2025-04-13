@@ -14,7 +14,7 @@ import { SortService } from '../../services/sort.service';
   imports: [CommonModule, MatSelectModule, MatSliderModule, MatButtonModule, MatDividerModule],
   templateUrl: './prop-definer.component.html',
   styleUrl: './prop-definer.component.scss'
-})
+})//rework into reactive form maybe...
 export class PropDefinerComponent {
   algorithmTypes: Algorithms[];
   selectedType?: Algorithms;
