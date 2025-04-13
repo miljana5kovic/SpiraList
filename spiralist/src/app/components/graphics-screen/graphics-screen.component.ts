@@ -31,9 +31,9 @@ export class GraphicsScreenComponent implements OnInit {
   }
 
   async sort(algo: string): Promise<void> { // must send event when completed to service so that active can be changed
+    const n = this.array.length;
     switch (algo) { // these should be in separate functions
       case "selection sort": // all cases for sorting types should be in some enum and accessed by ids...
-        const n = this.array.length;
         for (let i = 0; i < n - 1; i++) {
           let minIndex = i;
           for (let j = i + 1; j < n; j++) {
@@ -56,6 +56,22 @@ export class GraphicsScreenComponent implements OnInit {
       case "merge sort":
         break;
       case "bubble sort":
+        for (let i = 0; i < n - 1; i++) {
+          for (let j = 0; j < n - i - 1; j++) {
+            this.comparedIndices = [j + 1, j];
+            await new Promise(resolve => setTimeout(resolve, 100));
+            if (this.array[j] > this.array[j + 1]) {
+              this.comparedIndices = [];
+              this.swappedIndices.push(j);
+              this.swappedIndices.push(j + 1);
+              await new Promise(resolve => setTimeout(resolve, 50));
+              [this.array[j], this.array[j + 1]] = [this.array[j + 1], this.array[j]];
+              this.swappedIndices.pop();
+              this.swappedIndices.pop();
+            }
+          }
+          this.swappedIndices.push(n - 1 - i);
+        }
         break;
       default:
         throw Error('Invalid sorting type');
