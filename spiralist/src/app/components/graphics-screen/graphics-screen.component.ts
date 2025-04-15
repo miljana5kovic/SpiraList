@@ -53,7 +53,14 @@ export class GraphicsScreenComponent implements OnInit {
         }
         this.swappedIndices.push(n - 1);
         break;
-      case "merge sort":
+      case "insertion sort":
+        for (let i = 0; i < n; i++) {
+          let j = i;
+          while (j > 0 && this.array[j] < this.array[j - 1]) {
+            [this.array[j], this.array[j-1]] = [this.array[j-1], this.array[j]];
+            j--;
+          }
+        }
         break;
       case "bubble sort":
         for (let i = 0; i < n - 1; i++) {
@@ -72,6 +79,8 @@ export class GraphicsScreenComponent implements OnInit {
           }
           this.swappedIndices.push(n - 1 - i);
         }
+        break;
+      case "merge sort":
         break;
       default:
         throw Error('Invalid sorting type');
