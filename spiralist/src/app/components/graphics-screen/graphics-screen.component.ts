@@ -10,7 +10,7 @@ import { SortService } from '../../services/sort.service';
 })
 export class GraphicsScreenComponent implements OnInit {
   array: number[] = [];
-  swappedIndices: number[] = [];
+  swappedIndices: number[] = [];//needs to be reworked
   comparedIndices: number[] = [];
 
   constructor(private sortService: SortService) {
@@ -55,10 +55,14 @@ export class GraphicsScreenComponent implements OnInit {
         break;
       case "insertion sort":
         for (let i = 0; i < n; i++) {
+          this.swappedIndices.push(i);
           let j = i;
-          while (j > 0 && this.array[j] < this.array[j - 1]) {
-            [this.array[j], this.array[j-1]] = [this.array[j-1], this.array[j]];
+          while (j >= 0 && this.array[j] < this.array[j - 1]) {
+            this.comparedIndices = [j, j - 1];
+            await new Promise(resolve => setTimeout(resolve, 5));
+            [this.array[j], this.array[j - 1]] = [this.array[j - 1], this.array[j]];
             j--;
+            this.comparedIndices = [];
           }
         }
         break;
