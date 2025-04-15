@@ -1,5 +1,5 @@
 <div class="container">
     <div *ngFor="let number of array; let i = index">
-        <div class="element" [ngStyle]="{'height.px': number, 'width.px': 1000/array.length,'background-color': swappedIndices.includes(i) ? '#00ff00' : comparedIndices.includes(i) ?'#ff0000':'#005cbb'}"></div>
+        <div class="element" [ngStyle]="{'height.px': number, 'width.px': 1000/array.length,'background-color': comparedIndices.includes(i) ? '#ff0000' : swappedIndices.includes(i) ?'#00ff00':'#005cbb'}"></div>
     </div>
 </div>

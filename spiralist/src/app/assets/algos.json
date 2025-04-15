@@ -8,11 +8,15 @@
         },
         {
           "name": "merge sort",
-          "id": 1
+          "id": 2
         },
         {
           "name": "bubble sort",
-          "id": 2
+          "id": 3
+        }, 
+        {
+          "name": "insertion sort",
+          "id": 4
         }
         ]
     },
