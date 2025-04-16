@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Algorithms } from '../../models/algorithms';
 import AlgoTypes from '../../assets/algos.json'
 import { SortService } from '../../services/sort.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'prop-definer',
@@ -15,11 +16,12 @@ import { SortService } from '../../services/sort.service';
   templateUrl: './prop-definer.component.html',
   styleUrl: './prop-definer.component.scss'
 })//rework into reactive form maybe...
-export class PropDefinerComponent {
+export class PropDefinerComponent implements OnDestroy {
   algorithmTypes: Algorithms[];
   selectedType?: Algorithms;
   selectedAlgo?: Algorithm;
   length: number = 100;
+  subscriptions: Subscription[] = [];
 
   active: boolean = false;
 
@@ -34,15 +36,15 @@ export class PropDefinerComponent {
   generate(): void {
     this.sortService.generate(this.length);
   }
-  //add logic after implementing algorithms
+
   start(): void {
     this.active = true;
     this.sortService.sort(this.selectedAlgo?.name);
-    // unssubscribe from all subscriptions on destroy
-    this.sortService.sortCompletedEvent.subscribe(() => this.active = false);
+    this.subscriptions.push(this.sortService.sortCompletedEvent.subscribe(() => this.active = false));
   }
-  stop(): void {
-    this.active = false;
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(x => x.unsubscribe());
   }
 
 }

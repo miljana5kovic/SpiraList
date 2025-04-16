@@ -16,7 +16,6 @@
     <div class="buttons">  
         <mat-divider></mat-divider>
         <button mat-raised-button (click)="generate()" [disabled]="active">GENERATE</button>
-        <button *ngIf='!active' mat-raised-button (click)="start()">START</button>
-        <button *ngIf='active' mat-raised-button (click)="stop()">STOP</button>
+        <button mat-raised-button (click)="start()" [disabled]="active">START</button>
     </div>
 </div>

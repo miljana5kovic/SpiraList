@@ -10,7 +10,7 @@ import { SortService } from '../../services/sort.service';
 })
 export class GraphicsScreenComponent implements OnInit {
   array: number[] = [];
-  swappedIndices: number[] = [];//needs to be reworked
+  sortedIndices: number[] = [];//needs to be reworked
   comparedIndices: number[] = [];
 
   constructor(private sortService: SortService) {
@@ -23,7 +23,7 @@ export class GraphicsScreenComponent implements OnInit {
   }
 
   generate(len: number): number[] {
-    this.swappedIndices = [];
+    this.sortedIndices = [];
     this.comparedIndices = [];
     return Array(len)
       .fill(undefined)
@@ -38,24 +38,20 @@ export class GraphicsScreenComponent implements OnInit {
           let minIndex = i;
           for (let j = i + 1; j < n; j++) {
             this.comparedIndices = [j, minIndex];
-            await new Promise(resolve => setTimeout(resolve, 1));
-            // add so that user can choose how fast it goes
+            await new Promise(resolve => setTimeout(resolve, 5));
+            // add so that user can choose how fast visualisation goes
             if (this.array[j] < this.array[minIndex])
               minIndex = j;
-            this.comparedIndices = [minIndex];
           }
           this.comparedIndices = [];
-          this.swappedIndices.push(i);
-          this.swappedIndices.push(minIndex);
-          await new Promise(resolve => setTimeout(resolve, 5));
           [this.array[i], this.array[minIndex]] = [this.array[minIndex], this.array[i]];
-          this.swappedIndices.pop();
+          this.sortedIndices.push(i);
         }
-        this.swappedIndices.push(n - 1);
+        this.sortedIndices.push(n - 1);
         break;
       case "insertion sort":
         for (let i = 0; i < n; i++) {
-          this.swappedIndices.push(i);
+          this.sortedIndices.push(i);
           let j = i;
           while (j >= 0 && this.array[j] < this.array[j - 1]) {
             this.comparedIndices = [j, j - 1];
@@ -71,17 +67,13 @@ export class GraphicsScreenComponent implements OnInit {
           for (let j = 0; j < n - i - 1; j++) {
             this.comparedIndices = [j + 1, j];
             await new Promise(resolve => setTimeout(resolve, 100));
+            this.comparedIndices = [];
             if (this.array[j] > this.array[j + 1]) {
-              this.comparedIndices = [];
-              this.swappedIndices.push(j);
-              this.swappedIndices.push(j + 1);
               await new Promise(resolve => setTimeout(resolve, 50));
               [this.array[j], this.array[j + 1]] = [this.array[j + 1], this.array[j]];
-              this.swappedIndices.pop();
-              this.swappedIndices.pop();
             }
           }
-          this.swappedIndices.push(n - 1 - i);
+          this.sortedIndices.push(n - 1 - i);
         }
         break;
       case "merge sort":
