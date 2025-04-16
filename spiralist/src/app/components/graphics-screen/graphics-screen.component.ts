@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SortService } from '../../services/sort.service';
+import { SortAlgoService } from '../../services/sort-algo.service';
 
 @Component({
   selector: 'graphics-screen',
@@ -10,10 +11,8 @@ import { SortService } from '../../services/sort.service';
 })
 export class GraphicsScreenComponent implements OnInit {
   array: number[] = [];
-  sortedIndices: number[] = [];//needs to be reworked
-  comparedIndices: number[] = [];
 
-  constructor(private sortService: SortService) {
+  constructor(public sortService: SortService, public sortAlgoService: SortAlgoService) {
     this.array = this.generate(100);
   }
 
@@ -23,58 +22,23 @@ export class GraphicsScreenComponent implements OnInit {
   }
 
   generate(len: number): number[] {
-    this.sortedIndices = [];
-    this.comparedIndices = [];
+    this.sortAlgoService.sortedIndices = [];
+    this.sortAlgoService.comparedIndices = [];
     return Array(len)
       .fill(undefined)
       .map(() => Math.floor(600 * Math.random() + 100));
   }
 
   async sort(algo: string): Promise<void> { // must send event when completed to service so that active can be changed
-    const n = this.array.length;
-    switch (algo) { // these should be in separate functions
+    switch (algo) {
       case "selection sort": // all cases for sorting types should be in some enum and accessed by ids...
-        for (let i = 0; i < n - 1; i++) {
-          let minIndex = i;
-          for (let j = i + 1; j < n; j++) {
-            this.comparedIndices = [j, minIndex];
-            await new Promise(resolve => setTimeout(resolve, 5));
-            // add so that user can choose how fast visualisation goes
-            if (this.array[j] < this.array[minIndex])
-              minIndex = j;
-          }
-          this.comparedIndices = [];
-          [this.array[i], this.array[minIndex]] = [this.array[minIndex], this.array[i]];
-          this.sortedIndices.push(i);
-        }
-        this.sortedIndices.push(n - 1);
+        this.sortAlgoService.selectionSort(true, this.array);
         break;
       case "insertion sort":
-        for (let i = 0; i < n; i++) {
-          this.sortedIndices.push(i);
-          let j = i;
-          while (j >= 0 && this.array[j] < this.array[j - 1]) {
-            this.comparedIndices = [j, j - 1];
-            await new Promise(resolve => setTimeout(resolve, 5));
-            [this.array[j], this.array[j - 1]] = [this.array[j - 1], this.array[j]];
-            j--;
-            this.comparedIndices = [];
-          }
-        }
+        this.sortAlgoService.insertionSort(true, this.array);
         break;
       case "bubble sort":
-        for (let i = 0; i < n - 1; i++) {
-          for (let j = 0; j < n - i - 1; j++) {
-            this.comparedIndices = [j + 1, j];
-            await new Promise(resolve => setTimeout(resolve, 100));
-            this.comparedIndices = [];
-            if (this.array[j] > this.array[j + 1]) {
-              await new Promise(resolve => setTimeout(resolve, 50));
-              [this.array[j], this.array[j + 1]] = [this.array[j + 1], this.array[j]];
-            }
-          }
-          this.sortedIndices.push(n - 1 - i);
-        }
+        this.sortAlgoService.bubbleSort(true, this.array);
         break;
       case "merge sort":
         break;
