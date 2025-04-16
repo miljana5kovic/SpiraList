@@ -32,13 +32,13 @@ export class GraphicsScreenComponent implements OnInit {
   async sort(algo: string): Promise<void> { // must send event when completed to service so that active can be changed
     switch (algo) {
       case "selection sort": // all cases for sorting types should be in some enum and accessed by ids...
-        this.sortAlgoService.selectionSort(true, this.array);
+        await this.sortAlgoService.selectionSort(true, this.array);
         break;
       case "insertion sort":
-        this.sortAlgoService.insertionSort(true, this.array);
+        await this.sortAlgoService.insertionSort(true, this.array);
         break;
       case "bubble sort":
-        this.sortAlgoService.bubbleSort(true, this.array);
+        await this.sortAlgoService.bubbleSort(true, this.array);
         break;
       case "merge sort":
         break;
