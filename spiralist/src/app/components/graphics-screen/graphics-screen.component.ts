@@ -13,7 +13,7 @@ export class GraphicsScreenComponent implements OnInit {
   array: number[] = [];
 
   constructor(public sortService: SortService, public sortAlgoService: SortAlgoService) {
-    this.array = this.generate(100);
+    this.array = this.generate(50); //this is the same value from prop defiener
   }
 
   ngOnInit(): void {

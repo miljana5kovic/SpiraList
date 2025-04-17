@@ -15,12 +15,12 @@ import { Subscription } from 'rxjs';
   imports: [CommonModule, MatSelectModule, MatSliderModule, MatButtonModule, MatDividerModule],
   templateUrl: './prop-definer.component.html',
   styleUrl: './prop-definer.component.scss'
-})//rework into reactive form maybe...
+})
 export class PropDefinerComponent implements OnDestroy {
   algorithmTypes: Algorithms[];
   selectedType?: Algorithms;
   selectedAlgo?: Algorithm;
-  length: number = 100;
+  length: number = 50;
   subscriptions: Subscription[] = [];
 
   active: boolean = false;
