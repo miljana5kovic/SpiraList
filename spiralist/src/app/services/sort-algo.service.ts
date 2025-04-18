@@ -4,7 +4,6 @@ import { EventEmitter, Injectable, Output } from "@angular/core";
     providedIn: 'root'
 })
 export class SortAlgoService {
-    // add so that user can choose how fast visualisation goes
     sortedIndices: number[] = [];
     comparedIndices: number[] = [];
 

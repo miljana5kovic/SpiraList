@@ -21,6 +21,7 @@ export class PropDefinerComponent implements OnDestroy {
   selectedType?: Algorithms;
   selectedAlgo?: Algorithm;
   length: number = 50;
+  speed: number = 50;
   subscriptions: Subscription[] = [];
 
   active: boolean = false;
@@ -31,6 +32,10 @@ export class PropDefinerComponent implements OnDestroy {
 
   sliderChangedValue(event: number): void {
     this.length = event;
+  }
+
+  sliderChangedValueSpeed(event: number): void {
+    this.speed = event;
   }
 
   generate(): void {
