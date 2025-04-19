@@ -3,15 +3,23 @@
         <mat-select placeholder="Type" [(value)]="selectedType" [disabled]="active">
             <mat-option *ngFor="let type of algorithmTypes" [value]=type>{{type.type | uppercase}}</mat-option>
         </mat-select>
-        
+
         <mat-select placeholder="Algorithm"  [(value)]="selectedAlgo" [disabled]="active">
             <mat-option *ngFor="let algo of selectedType?.algos" [value]=algo>{{algo.name | uppercase}}</mat-option>
         </mat-select>
         
+        <br>
+        <br>
+        <br>
+        <!-- This should be done with flex -->
+    
+        <label>Array Length</label>
         <mat-slider class="array_length" step="1" min="10" max="500" [discrete]="true" [disabled]="active">
             <input matSliderThumb [value] = "length"  (valueChange)="sliderChangedValue($event)">
         </mat-slider>
 
+        
+        <label>Speed</label>
         <mat-slider class="array_length" step="1" min="10" max="50" [discrete]="true" [disabled]="active">
             <input matSliderThumb [value] = "sortService.speed"  (valueChange)="sliderChangedValueSpeed($event)">
         </mat-slider>
