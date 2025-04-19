@@ -1,9 +1,9 @@
 export interface Algorithms{
     type: string;
-    algos: Algorithm[];
+    algos: Algo[];
 }
 
-export interface Algorithm{
+export interface Algo{
     name: string;
     id: number;
 }

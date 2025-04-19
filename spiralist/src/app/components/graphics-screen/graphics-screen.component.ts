@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SortService } from '../../services/sort.service';
 import { SortAlgoService } from '../../services/sort-algo.service';
+import { Algos } from '../../assets/algos';
 
 @Component({
   selector: 'graphics-screen',
@@ -29,18 +30,18 @@ export class GraphicsScreenComponent implements OnInit {
       .map(() => Math.floor(600 * Math.random() + 100));
   }
 
-  async sort(algo: string): Promise<void> { // must send event when completed to service so that active can be changed
+  async sort(algo: Algos): Promise<void> {
     switch (algo) {
-      case "selection sort": // all cases for sorting types should be in some enum and accessed by ids...
+      case 0:
         await this.sortAlgoService.selectionSort(true, this.array);
         break;
-      case "insertion sort":
+      case 2:
         await this.sortAlgoService.insertionSort(true, this.array);
         break;
-      case "bubble sort":
+      case 1:
         await this.sortAlgoService.bubbleSort(true, this.array);
         break;
-      case "merge sort":
+      case 3:
         break;
       default:
         throw Error('Invalid sorting type');

@@ -5,7 +5,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { Algorithms } from '../../models/algorithms';
+import { Algo, Algorithms } from '../../models/algorithms';
 import AlgoTypes from '../../assets/algos.json'
 import { SortService } from '../../services/sort.service';
 import { Subscription } from 'rxjs';
@@ -18,16 +18,17 @@ import { Subscription } from 'rxjs';
 })
 export class PropDefinerComponent implements OnDestroy {
   algorithmTypes: Algorithms[];
-  selectedType?: Algorithms;
-  selectedAlgo?: Algorithm;
+  selectedType: Algorithms;
+  selectedAlgo: Algo;
   length: number = 50;
-  speed: number = 50;
   subscriptions: Subscription[] = [];
 
   active: boolean = false;
 
-  constructor(private sortService: SortService) {
+  constructor(public sortService: SortService) {
     this.algorithmTypes = AlgoTypes as unknown as Algorithms[];
+    this.selectedType = this.algorithmTypes[0];
+    this.selectedAlgo = this.selectedType.algos[0];
   }
 
   sliderChangedValue(event: number): void {
@@ -35,7 +36,7 @@ export class PropDefinerComponent implements OnDestroy {
   }
 
   sliderChangedValueSpeed(event: number): void {
-    this.speed = event;
+    this.sortService.speed = event;
   }
 
   generate(): void {
@@ -44,7 +45,7 @@ export class PropDefinerComponent implements OnDestroy {
 
   start(): void {
     this.active = true;
-    this.sortService.sort(this.selectedAlgo?.name);
+    this.sortService.sort(this.selectedAlgo?.id);
     this.subscriptions.push(this.sortService.sortCompletedEvent.subscribe(() => this.active = false));
   }
 

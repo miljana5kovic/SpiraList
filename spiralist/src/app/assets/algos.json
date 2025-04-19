@@ -4,19 +4,19 @@
       "algos": [
         {
         "name": "selection sort",
-        "id": 1
+        "id": 0
         },
         {
           "name": "merge sort",
-          "id": 2
+          "id": 3
         },
         {
           "name": "bubble sort",
-          "id": 3
+          "id": 1
         }, 
         {
           "name": "insertion sort",
-          "id": 4
+          "id": 2
         }
         ]
     },
@@ -25,11 +25,11 @@
       "algos": [
         {
           "name": "BFS",
-          "id": 1
+          "id": 4
         },
         {
           "name": "DFS",
-          "id": 2
+          "id": 5
         }
         ]
     }

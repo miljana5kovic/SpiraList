@@ -13,7 +13,7 @@
         </mat-slider>
 
         <mat-slider class="array_length" step="1" min="10" max="50" [discrete]="true" [disabled]="active">
-            <input matSliderThumb [value] = "speed"  (valueChange)="sliderChangedValueSpeed($event)">
+            <input matSliderThumb [value] = "sortService.speed"  (valueChange)="sliderChangedValueSpeed($event)">
         </mat-slider>
     </div>
 

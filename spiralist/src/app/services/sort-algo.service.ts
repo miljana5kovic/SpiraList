@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable, Output } from "@angular/core";
+import { SortService } from "./sort.service";
 
 @Injectable({
     providedIn: 'root'
@@ -7,7 +8,9 @@ export class SortAlgoService {
     sortedIndices: number[] = [];
     comparedIndices: number[] = [];
 
-    time: number = 50;
+    constructor(private sortService: SortService){
+
+    }
 
     async bubbleSort(animation: boolean, array: number[]): Promise<void> {
         let n = array.length;
@@ -15,7 +18,7 @@ export class SortAlgoService {
             for (let j = 0; j < n - i - 1; j++) {
                 if (animation) {
                     this.comparedIndices = [j + 1, j];
-                    await new Promise(resolve => setTimeout(resolve, this.time));
+                    await new Promise(resolve => setTimeout(resolve, this.sortService.speed));
                 }
                 this.comparedIndices = [];
                 if (array[j] > array[j + 1]) {
@@ -34,7 +37,7 @@ export class SortAlgoService {
             while (j >= 0 && array[j] < array[j - 1]) {
                 if (animation) {
                     this.comparedIndices = [j, j - 1];
-                    await new Promise(resolve => setTimeout(resolve, this.time));
+                    await new Promise(resolve => setTimeout(resolve, this.sortService.speed));
                 }
                 [array[j], array[j - 1]] = [array[j - 1], array[j]];
                 j--;
@@ -52,7 +55,7 @@ export class SortAlgoService {
             for (let j = i + 1; j < n; j++) {
                 if (animation) {
                     this.comparedIndices = [j, minIndex];
-                    await new Promise(resolve => setTimeout(resolve, this.time));
+                    await new Promise(resolve => setTimeout(resolve, this.sortService.speed));
                 }
                 if (array[j] < array[minIndex])
                     minIndex = j;
