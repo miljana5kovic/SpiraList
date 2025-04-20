@@ -8,7 +8,7 @@ export class SortAlgoService {
     sortedIndices: number[] = [];
     comparedIndices: number[] = [];
 
-    constructor(private sortService: SortService){
+    constructor(private sortService: SortService) {
 
     }
 
@@ -67,5 +67,19 @@ export class SortAlgoService {
         }
         if (animation)
             this.sortedIndices.push(n - 1);
+    }
+
+    async mergeSort(animation: boolean, array: number[]): Promise<void> {
+        let n = array.length;
+    }
+
+    async merge(array1: number[], array2: number[]): Promise<number[]> {
+        let merged: number[] = [];
+        let i = 0, j = 0;
+        while (i < array1.length || j < array2.length) {
+            if (j >= array2.length || array1[i] <= array2[j]) { merged.push(array1[i]); i++; }
+            else { merged.push(array2[j]); j++; }
+        }
+        return merged;
     }
 }

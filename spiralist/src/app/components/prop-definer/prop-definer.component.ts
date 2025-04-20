@@ -20,7 +20,7 @@ export class PropDefinerComponent implements OnDestroy {
   algorithmTypes: Algorithms[];
   selectedType: Algorithms;
   selectedAlgo: Algo;
-  length: number = 50;
+  length: number = 50; //implement like for speed...
   subscriptions: Subscription[] = [];
 
   active: boolean = false;
