@@ -42,6 +42,7 @@ export class GraphicsScreenComponent implements OnInit {
         await this.sortAlgoService.bubbleSort(true, this.array);
         break;
       case 3:
+        await this.sortAlgoService.mergeSort(true, this.array);
         break;
       default:
         throw Error('Invalid sorting type');
