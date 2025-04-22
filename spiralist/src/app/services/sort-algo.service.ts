@@ -87,14 +87,19 @@ export class SortAlgoService {
             .concat(right.slice(rightIndex));
     }
 
-    async mergeSort(animation: boolean, array: number[]): Promise<number[]> {
+    async mergeSort1(array: number[]): Promise<number[]> {
         if (array.length <= 1) {
             return array;
         }
         const middle = Math.floor(array.length / 2);
         const left = array.slice(0, middle);
         const right = array.slice(middle);
-        array = this.merge(await this.mergeSort(false, left), await this.mergeSort(false, right));
-        return array;
+        return this.merge(await this.mergeSort1(left), await this.mergeSort1(right));
+    }
+    async mergeSort(a: boolean, array: number[]): Promise<void> {
+        let array1 = await this.mergeSort1(array);
+        for (let i = 0; i < (array1).length; i++) {
+            array[i] = array1[i];
+        }
     }
 }
