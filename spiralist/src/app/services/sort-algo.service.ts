@@ -69,17 +69,32 @@ export class SortAlgoService {
             this.sortedIndices.push(n - 1);
     }
 
-    async mergeSort(animation: boolean, array: number[]): Promise<void> {
-        let n = array.length;
+    merge(left: number[], right: number[]): number[] {
+        let resultArray: number[] = [], leftIndex = 0, rightIndex = 0;
+
+        while (leftIndex < left.length && rightIndex < right.length) {
+            if (left[leftIndex] < right[rightIndex]) {
+                resultArray.push(left[leftIndex]);
+                leftIndex++;
+            } else {
+                resultArray.push(right[rightIndex]);
+                rightIndex++;
+            }
+        }
+
+        return resultArray
+            .concat(left.slice(leftIndex))
+            .concat(right.slice(rightIndex));
     }
 
-    async merge(array1: number[], array2: number[]): Promise<number[]> {
-        let merged: number[] = [];
-        let i = 0, j = 0;
-        while (i < array1.length || j < array2.length) {
-            if (j >= array2.length || array1[i] <= array2[j]) { merged.push(array1[i]); i++; }
-            else { merged.push(array2[j]); j++; }
+    async mergeSort(animation: boolean, array: number[]): Promise<number[]> {
+        if (array.length <= 1) {
+            return array;
         }
-        return merged;
+        const middle = Math.floor(array.length / 2);
+        const left = array.slice(0, middle);
+        const right = array.slice(middle);
+        array = this.merge(await this.mergeSort(false, left), await this.mergeSort(false, right));
+        return array;
     }
 }
