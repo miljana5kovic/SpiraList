@@ -30,6 +30,10 @@
         {
           "name": "DFS",
           "id": 5
+        },
+        {
+          "name": "Dijstra",
+          "id": 6
         }
         ]
     }
