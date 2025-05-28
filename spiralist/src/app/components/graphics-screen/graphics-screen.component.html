@@ -2,4 +2,5 @@
     <div *ngFor="let number of array; let i = index">
         <div class="element" [ngStyle]="{'height.px': number, 'width.vw': 70/array.length,'background-color': sortAlgoService.comparedIndices.includes(i) ? '#ff0000' : sortAlgoService.sortedIndices.includes(i) ?'#00ff00':'#005cbb'}"></div>
     </div>
+    <!-- if graph draw something else -->
 </div>
